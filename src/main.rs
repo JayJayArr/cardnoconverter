@@ -9,7 +9,7 @@ struct Args {
     /// cardno in DEC format that shall be converted
     cardno: i128,
 
-    /// optional: Data in which the cardnumber should be found
+    /// optional: Data in which the cardnumber should be found, only binary is supported
     data: Option<String>,
 }
 
@@ -17,10 +17,9 @@ fn main() {
     let args = Args::parse();
     let declength = args.cardno.to_string().len();
     let chars: Vec<char> = args.cardno.to_string().chars().collect();
-    // if let Some(haystack) = args.data.as_deref() {
-    //     println!("{:?}", args.data.as_deref());
-    //     chars = args.data.unwrap().chars().collect();
-    // }
+    if let Some(haystack) = args.data.as_deref() {
+        println!("Haystack: {:?}", haystack);
+    }
     let mut asciichars: Vec<u8> = vec![];
     for char in chars {
         asciichars.push(char as u8);
