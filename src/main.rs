@@ -12,14 +12,43 @@ struct Args {
     /// optional: Data in which the cardnumber should be found, only binary is supported
     data: Option<String>,
 }
+//needle: decimal cardno, haystack: String of bits
+fn search_in(needle: i128, haystack: &String) {
+    println!("Searching for {:?} in {:?} ", needle, haystack);
+    let chars: Vec<char> = needle.to_string().chars().collect();
+
+    let reversehaystack = haystack.clone().chars().rev().collect::<String>();
+    let needlestring: String = chars.iter().collect();
+    let mut asciichars: Vec<u8> = vec![];
+    let bin = format_args!("{:b}", needle).to_string();
+    for char in chars.clone() {
+        asciichars.push(char as u8);
+    }
+    //TODO: this gives a array representation of ascii chars, maybe only search for all chars?
+    let ascii: String = format_args!("{:X?}", asciichars.to_ascii_uppercase()).to_string();
+    println!(
+        "chars: {:?}, needlestring: {:?}, asciichars: {:?}, bin: {:?}",
+        chars, needlestring, ascii, bin
+    );
+
+    if haystack.contains(&bin) {
+        println!("Found as binary!");
+    }
+    if reversehaystack.contains(&bin) {
+        println!("Found as binary in the reverse haystack!");
+    }
+    if haystack.contains(&ascii) {
+        println!("Found as ascii!");
+    }
+    if reversehaystack.contains(&ascii) {
+        println!("Found as ascii in the reverse haystack!");
+    }
+}
 
 fn main() {
     let args = Args::parse();
     let declength = args.cardno.to_string().len();
     let chars: Vec<char> = args.cardno.to_string().chars().collect();
-    if let Some(haystack) = args.data.as_deref() {
-        println!("Haystack: {:?}", haystack);
-    }
     let mut asciichars: Vec<u8> = vec![];
     for char in chars {
         asciichars.push(char as u8);
@@ -61,12 +90,12 @@ fn main() {
             .collect::<String>()
     );
     println!(
-        "ASCII (lowercase): {}",
+        "ASCII (decimal): {}",
         format_args!("{:?}", asciichars.to_ascii_lowercase())
     );
     println!(
-        "ASCII (uppercase): {}",
-        format_args!("{:?}", asciichars.to_ascii_uppercase())
+        "ASCII (hex): {}",
+        format_args!("{:X?}", asciichars.to_ascii_uppercase())
     );
 
     println!("Dec length: {}", format_args!("{:?}", declength));
@@ -80,4 +109,9 @@ fn main() {
     }
 
     println!("Bin length: {}", binlength);
+    //if there is a haystack, start the search
+    if let Some(haystack) = args.data.as_deref() {
+        println!("Haystack: {:?}", haystack);
+        search_in(args.cardno, &haystack.to_string());
+    }
 }
