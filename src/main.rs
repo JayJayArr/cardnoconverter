@@ -1,4 +1,7 @@
-use std::char;
+use std::{
+    char,
+    io::{Bytes, Read},
+};
 
 use clap::Parser;
 
@@ -24,11 +27,17 @@ fn search_in(needle: i128, haystack: &String) {
     for char in chars.clone() {
         asciichars.push(char as u8);
     }
-    //TODO: this gives a array representation of ascii chars, maybe only search for all chars?
+
+    let asciibit: String = asciichars
+        .iter()
+        .map(|character| format!("{:b}", character).to_string())
+        .collect();
+
     let ascii: String = format_args!("{:X?}", asciichars.to_ascii_uppercase()).to_string();
+
     println!(
-        "chars: {:?}, needlestring: {:?}, asciichars: {:?}, bin: {:?}",
-        chars, needlestring, ascii, bin
+        "chars: {:?}, needlestring: {:?}, asciibit: {:?}, ascii: {:?}, bin: {:?}",
+        chars, needlestring, asciibit, ascii, bin
     );
 
     if haystack.contains(&bin) {
@@ -37,10 +46,10 @@ fn search_in(needle: i128, haystack: &String) {
     if reversehaystack.contains(&bin) {
         println!("Found as binary in the reverse haystack!");
     }
-    if haystack.contains(&ascii) {
+    if haystack.contains(&asciibit) {
         println!("Found as ascii!");
     }
-    if reversehaystack.contains(&ascii) {
+    if reversehaystack.contains(&asciibit) {
         println!("Found as ascii in the reverse haystack!");
     }
 }
