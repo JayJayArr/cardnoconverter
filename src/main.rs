@@ -1,7 +1,4 @@
-use std::{
-    char,
-    io::{Bytes, Read},
-};
+use std::char;
 
 use clap::Parser;
 
@@ -10,13 +7,13 @@ use clap::Parser;
 #[command(version, about, long_about = None)]
 struct Args {
     /// cardno in DEC format that shall be converted
-    cardno: i128,
+    cardno: u128,
 
     /// optional: Data in which the cardnumber should be found, only binary is supported
     data: Option<String>,
 }
 //needle: decimal cardno, haystack: String of bits
-fn search_in(needle: i128, haystack: &String) {
+fn search_in(needle: u128, haystack: &String) {
     println!("Searching for {:?} in {:?} ", needle, haystack);
     let chars: Vec<char> = needle.to_string().chars().collect();
 
@@ -42,15 +39,17 @@ fn search_in(needle: i128, haystack: &String) {
 
     if haystack.contains(&bin) {
         println!("Found as binary!");
-    }
-    if reversehaystack.contains(&bin) {
+    } else if reversehaystack.contains(&bin) {
         println!("Found as binary in the reverse haystack!");
+    } else {
+        println!("NOT Found as binary!");
     }
     if haystack.contains(&asciibit) {
         println!("Found as ascii!");
-    }
-    if reversehaystack.contains(&asciibit) {
+    } else if reversehaystack.contains(&asciibit) {
         println!("Found as ascii in the reverse haystack!");
+    } else {
+        println!("NOT Found as ascii!");
     }
 }
 
