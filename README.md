@@ -9,7 +9,8 @@ convert a number in all kinds of stuff and give some info
 - Hex
 - ASCII
 - BCD
-  Each format is also available in reverse
+
+Each format is also created in reverse bit order
 
 ### Output information
 
@@ -20,4 +21,4 @@ convert a number in all kinds of stuff and give some info
 
 ### Searching in a binary string
 
-An additional String containing a binary Sequence can serve as a haystack and will be searched for occurrences of the supplied cardnumber
+An additional String containing a binary Sequence can serve as a haystack and will be searched for occurrences of the supplied cardnumber both in original and reversed order
