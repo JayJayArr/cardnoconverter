@@ -64,7 +64,7 @@ pub fn print_info(cardno: u64) {
     println!("BCD length (Bit): {}", bcd.to_string().len());
 }
 
-fn chars_to_bcd(chars: Vec<char>) -> String {
+pub fn chars_to_bcd(chars: Vec<char>) -> String {
     let mut bcd: String = "".to_string();
     for char in chars.clone() {
         match char {
@@ -84,7 +84,7 @@ fn chars_to_bcd(chars: Vec<char>) -> String {
     bcd
 }
 
-fn chars_to_ascii(chars: Vec<char>) -> Vec<u8> {
+pub fn chars_to_ascii(chars: Vec<char>) -> Vec<u8> {
     let mut asciichars: Vec<u8> = vec![];
     for char in chars.clone() {
         asciichars.push(char as u8);
