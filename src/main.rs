@@ -3,7 +3,7 @@ use clap::Parser;
 mod search;
 use search::search_in;
 mod print;
-use print::print;
+use print::print_info;
 
 /// Convert a Cardnumber into all kinds of formats to help with creating a card format
 #[derive(Parser, Debug)]
@@ -19,7 +19,7 @@ struct Args {
 fn main() {
     let args = Args::parse();
 
-    print(args.cardno);
+    print_info(args.cardno);
 
     //if there is a haystack, start the search
     if let Some(haystack) = args.data.as_deref() {
