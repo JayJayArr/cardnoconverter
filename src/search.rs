@@ -20,29 +20,36 @@ pub fn search_in(needle: u64, haystack: &String) {
         .collect();
 
     // Collect cases which need to be checked
-    let options = vec![
+    let variants = vec![
         (&bin, "binary".to_string()),
         (&asciibit, "ASCII".to_string()),
         (&bcd, "BCD".to_string()),
     ];
     // Check Haystack for all options forward and reverse
-    for (option, format) in options {
+    for (option, format) in variants {
         if haystack.contains(option) {
-            print_success(format);
+            print_success(format, find_position(&needle, &haystack));
         } else if reversehaystack.contains(&bin) {
-            print_success_reversed(format);
+            print_success_reversed(format, find_position(&needle, &haystack));
         } else {
             print_failure(format);
         }
     }
 }
 
-fn print_success(format: String) {
-    println!("Found as {}!", format);
+fn print_success(format: String, position: usize) {
+    println!("Found as {} at position {}!", format, position);
 }
-fn print_success_reversed(format: String) {
-    println!("Found as {} in the reverse haystack!", format);
+fn print_success_reversed(format: String, position: usize) {
+    println!(
+        "Found as {} at postion {} in the REVERSE haystack !",
+        format, position
+    );
 }
 fn print_failure(format: String) {
     println!("NOT Found as {}!", format);
+}
+
+fn find_position(needle: &u64, haystack: &String) -> usize {
+    haystack.find(&needle.to_string()).unwrap_or(0)
 }
