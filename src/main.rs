@@ -1,9 +1,9 @@
 use clap::Parser;
-
-mod search;
-use search::search_in;
-mod print;
 use print::print_info;
+use search::search_in;
+
+mod print;
+mod search;
 
 /// Convert a Cardnumber into all kinds of formats to help with creating a card format
 #[derive(Parser, Debug)]

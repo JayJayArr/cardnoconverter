@@ -1,6 +1,6 @@
-//needle: decimal cardno, haystack: String of bits
 use crate::print::{chars_to_ascii, chars_to_bcd};
 
+//needle: decimal cardno, haystack: String of bits
 pub fn search_in(needle: u64, haystack: &String) {
     println!(
         "\n[Search] Searching for {:?} in {:?} ... \n",
